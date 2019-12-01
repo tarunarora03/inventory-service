@@ -27,6 +27,7 @@ public class AssetDto {
 	private Boolean retired;
 	private Integer cost;
 
+	@NotNull(message = "Owner Id cannot be null")
 	private Integer ownerId;
 	private Integer userId;
 

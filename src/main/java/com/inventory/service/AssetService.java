@@ -72,6 +72,7 @@ public class AssetService {
 	}
 	
 	public void editAsset(int assetId, AssetDto dto) {
+		
 		Asset a = searchAsset(assetId);
 		if (a != null) {
 			dto.setId(a.getId());

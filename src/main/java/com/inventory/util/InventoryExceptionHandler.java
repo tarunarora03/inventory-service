@@ -17,13 +17,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class InventoryExceptionHandler extends ResponseEntityExceptionHandler {
 
-//	@ExceptionHandler(Exception.class)
-//	public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
-//		List<String> details = new ArrayList<>();
-//		details.add(ex.getLocalizedMessage());
-//		ErrorResponse error = new ErrorResponse("Server Error", details);
-//		return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
+	@ExceptionHandler(Exception.class)
+	public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+		ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getLocalizedMessage());
+		return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
 	@ExceptionHandler(RecordNotFoundException.class)
 	public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
