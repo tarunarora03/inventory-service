@@ -65,13 +65,23 @@ public class AssetService {
 		if(pagedResult.hasContent()) {
 			for (Asset a : pagedResult.getContent()) {
 				AssetDto dto = new AssetDto();
-				mapper.map(a, dto);
+				dto.setAcquisition(a.getAcquisition());
+				dto.setBrand(a.getBrand());
+				dto.setCost(a.getCost());
+				dto.setId(a.getId());
+				dto.setModel(a.getModel());
+				dto.setName(a.getName());
+				dto.setOwnerId(a.getOrganization().getId());
+				dto.setRetired(a.getRetired());
+				dto.setSerial_number(a.getSerial_number());
+				dto.setType(a.getType().name());
+				dto.setUserId(a.getUser().getId());
+				dto.setWarranty_expiration(a.getWarranty_expiration());
+				
+				//mapper.map(a, dto);
 				response.add(dto);
 			}
 		}
-		//List<Asset> assets = assetRepository.findByName(name,pageable);
-		
-
 		return response;
 	}
 	
