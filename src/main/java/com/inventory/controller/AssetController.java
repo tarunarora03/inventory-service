@@ -33,7 +33,7 @@ public class AssetController {
 	private AssetService service;
 
 	@PostMapping
-	public int registerAsset(@RequestBody AssetDto assetDto) {
+	public int registerAsset(@Valid @RequestBody AssetDto assetDto) {
 		System.out.println("Registration request recieved for: "+assetDto.getName());
 		return service.registerAsset(assetDto);
 	}
