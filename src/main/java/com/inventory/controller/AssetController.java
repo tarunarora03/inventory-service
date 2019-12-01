@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inventory.dto.AssetDto;
@@ -26,25 +27,26 @@ import com.inventory.service.AssetService;
 public class AssetController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AssetController.class);
-	
+
 	@Autowired
 	private AssetService service;
 
 	@PostMapping
 	public int registerAsset(@Valid @RequestBody AssetDto assetDto) {
-		LOG.info("Registration request recieved for: {}",assetDto.getName());
+		LOG.info("Registration request recieved for: {}", assetDto.getName());
 		return service.registerAsset(assetDto);
 	}
 
 	@GetMapping("/{name}")
-	public List<AssetDto> getAsset(@PathVariable String name) {
-		LOG.info("requesting asset: {}",name);
-		return service.getAsset(name);
+	public List<AssetDto> getAsset(@PathVariable String name, @RequestParam(defaultValue = "0") Integer pageNo,
+			@RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
+		LOG.info("requesting asset: {}", name);
+		return service.getAsset(name,pageNo, pageSize, sortBy);
 	}
 
 	@DeleteMapping("/{assetId}")
 	public void deleteAsset(@PathVariable int assetId) {
-		LOG.info("Request received to delete Asset id {}",assetId);
+		LOG.info("Request received to delete Asset id {}", assetId);
 		service.deleteAsset(assetId);
 	}
 

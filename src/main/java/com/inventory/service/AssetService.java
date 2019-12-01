@@ -6,6 +6,10 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.inventory.dto.AssetDto;
@@ -52,14 +56,22 @@ public class AssetService {
 		
 	}
 
-	public List<AssetDto> getAsset(String name) {
-		List<Asset> assets = assetRepository.findByName(name);
+	public List<AssetDto> getAsset(String name, Integer pageNo, Integer pageSize, String sortBy) {
+		
+		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+		Page<Asset> pagedResult = assetRepository.findByName(name,pageable);
+		
 		List<AssetDto> response = new ArrayList<>();
-		for (Asset a : assets) {
-			AssetDto dto = new AssetDto();
-			mapper.map(a, dto);
-			response.add(dto);
+		if(pagedResult.hasContent()) {
+			for (Asset a : pagedResult.getContent()) {
+				AssetDto dto = new AssetDto();
+				mapper.map(a, dto);
+				response.add(dto);
+			}
 		}
+		//List<Asset> assets = assetRepository.findByName(name,pageable);
+		
+
 		return response;
 	}
 	

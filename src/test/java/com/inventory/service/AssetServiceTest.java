@@ -36,7 +36,7 @@ public class AssetServiceTest {
 		service.registerAsset(dto);
 		
 		//retrieve Asset
-		List<AssetDto> assets = service.getAsset("someAssetName");
+		List<AssetDto> assets = service.getAsset("someAssetName", 0, 5, "id");
 		Assertions.assertEquals(1, assets.size());
 		Assertions.assertTrue(assets.get(0).getRetired());
 		Assertions.assertEquals("someAssetName", assets.get(0).getName());
@@ -46,7 +46,7 @@ public class AssetServiceTest {
 		
 		//delete Asset
 		service.deleteAsset(assets.get(0).getId());
-		assets = service.getAsset("someAssetName");
+		assets = service.getAsset("someAssetName", 0, 5, "id");
 		Assertions.assertEquals(0, assets.size());
 		
 	}

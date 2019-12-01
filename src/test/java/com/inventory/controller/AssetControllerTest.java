@@ -39,7 +39,7 @@ public class AssetControllerTest {
 		dto.setRetired(true);
 		dto.setSerial_number("12-12-32453");
 		list.add(dto);
-		when(service.getAsset("someAsset")).thenReturn(list);
+		when(service.getAsset("someAsset", 0, 5, "id")).thenReturn(list);
 		MvcResult response = mvc.perform(get("/asset/someAsset").contentType(APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
 		JSONArray jsonArr = new JSONArray(response.getResponse().getContentAsString());
